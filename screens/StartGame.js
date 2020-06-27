@@ -1,21 +1,35 @@
-import React from 'react'
-import { StyleSheet, View, Text, TextInput, Button } from 'react-native'
+import React, { useState, useCallback } from 'react'
+import { StyleSheet, View, Text, Button, TouchableWithoutFeedback, Keyboard } from 'react-native'
 
 import { Card, Input } from '../components'
 import { Colors } from '../theme'
 
 const StartGame = props => {
-    return <View style={styles.screen}>
-        <Text style={styles.title}>Start new Game</Text>
-        <Card style={styles.inputContainer}>
-            <Text>Select a Number</Text>
-            <Input style={styles.input} blurOnSubmit keyboardType="number-pad" autoCorrect={false} maxLength={2} />
-            <View style={styles.buttonContainer}>
-                <View style={styles.button}><Button title="Reset" color={Colors.accent} /></View>
-                <View style={styles.button}><Button title="Confirm" color={Colors.primary} /></View>
-            </View>
-        </Card>
-    </View> 
+    const [enteredNumber, setEnteredNumber] = useState('')
+
+    const handleEnteredNumber = useCallback(
+        (text) => setEnteredNumber(text.replace(/[^0-9]/g, '')),
+        []
+    )
+
+    const handlePress = useCallback(
+        () => Keyboard.dismiss(),
+        []
+    )
+
+    return <TouchableWithoutFeedback onPress={handlePress}>
+        <View style={styles.screen}>
+            <Text style={styles.title}>Start new Game</Text>
+            <Card style={styles.inputContainer}>
+                <Text>Select a Number</Text>
+                <Input style={styles.input} blurOnSubmit keyboardType="number-pad" autoCorrect={false} maxLength={2} onChangeText={handleEnteredNumber} value={enteredNumber} />
+                <View style={styles.buttonContainer}>
+                    <View style={styles.button}><Button title="Reset" color={Colors.accent} /></View>
+                    <View style={styles.button}><Button title="Confirm" color={Colors.primary} /></View>
+                </View>
+            </Card>
+        </View>
+    </TouchableWithoutFeedback>
 }
 
 const styles = StyleSheet.create({
