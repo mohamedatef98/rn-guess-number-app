@@ -3,10 +3,10 @@ import { StyleSheet, View, Text, TextInput, Button } from 'react-native'
 
 const StartGame = props => {
     return <View style={styles.screen}>
-        <Text>Game Screen</Text>
+        <Text style={styles.title}>Start new Game</Text>
         <View style={styles.inputContainer}>
-            <Text style={styles.title}>Start new Game</Text>
-            <TextInput />
+            <Text>Select a Number</Text>
+            <TextInput style={styles.input} />
             <View style={styles.buttonContainer}>
                 <Button title="Reset" />
                 <Button title="Confirm" />
@@ -28,7 +28,26 @@ const styles = StyleSheet.create({
     inputContainer: {
         width: 300,
         maxWidth: '80%',
-        alignItems: 'center'
+        alignItems: 'center',
+        backgroundColor: 'white',
+        padding: 20,
+        borderRadius: 10,
+        elevation: 8,
+        shadowColor: 'black',
+        shadowRadius: 6,
+        shadowOpacity: 0.25,
+        shadowOffset: {
+            width: 0,
+            height: 0
+        }
+    },
+    input: {
+        width: '70%',
+        borderColor: '#ccc',
+        borderWidth: 1,
+        borderRadius: 8,
+        marginVertical: 10,
+        padding: 7
     },
     buttonContainer: {
         width: '100%',
