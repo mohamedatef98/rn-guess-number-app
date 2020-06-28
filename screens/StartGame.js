@@ -1,5 +1,5 @@
 import React, { useState, useCallback } from 'react'
-import { StyleSheet, View, Text, Button, TouchableWithoutFeedback, Keyboard } from 'react-native'
+import { StyleSheet, View, Text, Button, TouchableWithoutFeedback, Keyboard, Alert } from 'react-native'
 
 import { Card, Input } from '../components'
 import { Colors } from '../theme'
@@ -20,23 +20,25 @@ const StartGame = props => {
         []
     )
 
-    const handleConfirmPress = useCallback(
-        () => {
-            const parsedEnteredNumber = parseInt(enteredNumber)
-            if (Number.isNaN(parsedEnteredNumber) || parsedEnteredNumber <= 0 || parsedEnteredNumber > 99) return;
-            setSelectedNumber(parsedEnteredNumber)
-            setConfirmed(true)
-            setEnteredNumber('')
-        },
-        [enteredNumber]
-    )
-
     const handleResetPress = useCallback(
         () => {
             setSelectedNumber(0)
             setEnteredNumber('')
             setConfirmed(false)
         }
+    )
+
+    const handleConfirmPress = useCallback(
+        () => {
+            const parsedEnteredNumber = parseInt(enteredNumber)
+            if (Number.isNaN(parsedEnteredNumber) || parsedEnteredNumber <= 0 || parsedEnteredNumber > 99) {
+                return Alert.alert('Invalid Number', 'Enter a Number between 1 and 99', [{ text: 'Okay', style: 'destructive', onPress: handleResetPress }])
+            }
+            setSelectedNumber(parsedEnteredNumber)
+            setConfirmed(true)
+            setEnteredNumber('')
+        },
+        [enteredNumber]
     )
 
     return <TouchableWithoutFeedback onPress={handlePress}>
