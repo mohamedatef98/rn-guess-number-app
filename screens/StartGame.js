@@ -1,7 +1,7 @@
 import React, { useState, useCallback } from 'react'
 import { StyleSheet, View, Text, Button, TouchableWithoutFeedback, Keyboard, Alert } from 'react-native'
 
-import { Card, Input } from '../components'
+import { Card, Input, NumberContainer } from '../components'
 import { Colors } from '../theme'
 
 const StartGame = props => {
@@ -52,7 +52,11 @@ const StartGame = props => {
                     <View style={styles.button}><Button title="Confirm" color={Colors.primary} onPress={handleConfirmPress} /></View>
                 </View>
             </Card>
-            {confirmed && (<Text>Chosen Number: {selectedNumber}</Text>)}
+            {confirmed && <Card style={styles.summaryContainer}>
+                <Text>You Selected</Text>
+                <NumberContainer>{selectedNumber}</NumberContainer>
+                <Button title="START GAME" />
+            </Card>}
         </View>
     </TouchableWithoutFeedback>
 }
@@ -84,6 +88,10 @@ const styles = StyleSheet.create({
     },
     button: {
         width: 90
+    },
+    summaryContainer: {
+        marginTop: 20,
+        alignItems: 'center'
     }
 })
 
