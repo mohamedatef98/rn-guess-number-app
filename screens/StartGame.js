@@ -4,7 +4,7 @@ import { StyleSheet, View, Text, Button, TouchableWithoutFeedback, Keyboard, Ale
 import { Card, Input, NumberContainer } from '../components'
 import { Colors } from '../theme'
 
-const StartGame = props => {
+const StartGame = ({ onStartGame }) => {
     const [enteredNumber, setEnteredNumber] = useState('')
     const [confirmed, setConfirmed] = useState(false)
     const [selectedNumber, setSelectedNumber] = useState(0)
@@ -41,6 +41,11 @@ const StartGame = props => {
         [enteredNumber]
     )
 
+    const startGameHandler = useCallback(
+        () => onStartGame(selectedNumber),
+        [selectedNumber]
+    )
+
     return <TouchableWithoutFeedback onPress={handlePress}>
         <View style={styles.screen}>
             <Text style={styles.title}>Start new Game</Text>
@@ -55,7 +60,7 @@ const StartGame = props => {
             {confirmed && <Card style={styles.summaryContainer}>
                 <Text>You Selected</Text>
                 <NumberContainer>{selectedNumber}</NumberContainer>
-                <Button title="START GAME" />
+                <Button title="START GAME" onPress={startGameHandler} />
             </Card>}
         </View>
     </TouchableWithoutFeedback>
