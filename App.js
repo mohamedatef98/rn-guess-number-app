@@ -10,10 +10,18 @@ const GAME_OVER = 'over'
 
 
 export default function App() {
-  const [selectedNumber, setSelectedNumber] = useState()
+  const [selectedNumber, setSelectedNumber] = useState(null)
   const [numberOfGuesses, setNumberOfGuesses] = useState(0)
 
   const [gameState, setGameState] = useState(GAME_START)
+
+  const restartGameHandler = useCallback(
+    () => {
+      setSelectedNumber(null)
+      setNumberOfGuesses(0)
+      setGameState(GAME_START)
+    }
+  )
 
   const startGameHandler = useCallback(
     (selectedNumber) => {
@@ -41,7 +49,7 @@ export default function App() {
       content = <Game userChoice={selectedNumber} onGameOver={gameOverHandler} />
       break
     case GAME_OVER: 
-      content = <GameOver />
+      content = <GameOver userChoice={selectedNumber} numOfGuesses={numberOfGuesses} onRestart={restartGameHandler} />
       break      
   }
 
