@@ -1,4 +1,5 @@
 import StartGame from './StartGame'
 import Game from './Game'
+import GameOver from './GameOver'
 
-export { StartGame, Game }
+export { StartGame, Game, GameOver }
