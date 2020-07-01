@@ -1,5 +1,6 @@
 import React from 'react'
 import { View, Text, StyleSheet, Button, Image } from 'react-native'
+import { Colors } from '../theme'
 
 const GameOver = ({ numOfGuesses, userChoice, onRestart }) => {
     return <View style={styles.screen}>
@@ -7,8 +8,7 @@ const GameOver = ({ numOfGuesses, userChoice, onRestart }) => {
         <View style={styles.imageContainer}>
             <Image style={styles.image} source={require('../assets/success.png')} />
         </View>
-        <Text>Your Number was {userChoice}</Text>
-        <Text>It took {numOfGuesses} guesses to find it</Text>
+        <Text style={styles.summary}>It took <Text style={styles.highlighted}>{numOfGuesses}</Text> to guess <Text style={styles.highlighted}>{userChoice}</Text>.</Text>
         <Button title="New Game ?" onPress={onRestart} />
     </View>
 }
@@ -35,6 +35,14 @@ const styles = StyleSheet.create({
     image: {
         width: '100%',
         height: '100%'
+    },
+    summary: {
+        fontSize: 20,
+        marginVertical: 30,
+        marginHorizontal: 15
+    },
+    highlighted: {
+        color: Colors.primary
     }
 })
 
