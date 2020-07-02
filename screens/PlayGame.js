@@ -1,5 +1,5 @@
 import React, { useState, useRef, useEffect } from 'react'
-import { View, Text, StyleSheet, Alert } from 'react-native'
+import { View, Text, StyleSheet, Alert, ScrollView } from 'react-native'
 
 import { NumberContainer, Card, Button } from '../components'
 import { Fonts } from '../theme'
@@ -20,16 +20,16 @@ const generateRandomNumber = (min, max, exclude) => {
 
 const PlayGame = ({ userChoice, onGameOver }) => {
     const [currentGuess, setCurrentGuess] = useState(generateRandomNumber(1, 100, userChoice))
-    const [numOfGuesses, setNumberOfGuesses] = useState(0)
+    const [pastGuesses, setPastGuesses] = useState([currentGuess])
 
     const currentLow = useRef(1)
     const currentHigh = useRef(100)
 
     useEffect(
         () => {
-            if (userChoice === currentGuess) onGameOver(numOfGuesses)
+            if (userChoice === currentGuess) onGameOver(pastGuesses.length)
         },
-        [userChoice, currentGuess, onGameOver, numOfGuesses]
+        [userChoice, currentGuess, onGameOver, pastGuesses]
     )
 
     const nextGuessHandler = direction => {
@@ -40,12 +40,12 @@ const PlayGame = ({ userChoice, onGameOver }) => {
                 currentHigh.current = currentGuess
 
             else if (direction === DIRECTION_GREATER)
-                currentLow.current = currentGuess
+                currentLow.current = currentGuess + 1
 
             const nextRnd = generateRandomNumber(currentLow.current, currentHigh.current, currentGuess)
 
             setCurrentGuess(nextRnd)
-            setNumberOfGuesses(num => num + 1)
+            setPastGuesses(pastGuesses => [nextRnd, ...pastGuesses])
         }
     
     const lowerPressHandler = () => nextGuessHandler(DIRECTION_LOWER)
@@ -64,6 +64,14 @@ const PlayGame = ({ userChoice, onGameOver }) => {
                     <Ionicons name="md-add" size={24} />
                 </Button>
             </Card>
+            <View style={styles.list}>
+                <ScrollView>
+                    {pastGuesses.map((guess, i) => (<View key={guess} style={styles.listItem}>
+                        <Text style={styles.text}>#{pastGuesses.length - i}</Text>
+                        <Text style={styles.text}>{guess}</Text>
+                    </View>))}
+                </ScrollView>
+            </View>
         </View>
     )
 }
@@ -71,6 +79,7 @@ const PlayGame = ({ userChoice, onGameOver }) => {
 const styles = StyleSheet.create({
     screen: {
         alignItems: 'center',
+        flex: 1,
         padding: 10
     },
     title: {
@@ -81,7 +90,22 @@ const styles = StyleSheet.create({
         justifyContent: 'space-around',
         marginTop: 20,
         width: 400,
-        maxWidth: '80%'
+        maxWidth: '90%'
+    },
+    text: {
+        fontFamily: Fonts.primary
+    },
+    list: {
+        flex: 1,
+        width: '80%'
+    },
+    listItem: {
+        borderColor: '#ccc',
+        borderWidth: 1,
+        marginVertical: 10,
+        padding: 15,
+        flexDirection: 'row',
+        justifyContent: 'space-between'
     }
 })
 
