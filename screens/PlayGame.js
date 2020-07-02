@@ -1,7 +1,7 @@
 import React, { useState, useRef, useEffect } from 'react'
-import { View, Text, StyleSheet, Button, Alert } from 'react-native'
+import { View, Text, StyleSheet, Alert } from 'react-native'
 
-import { NumberContainer, Card } from '../components'
+import { NumberContainer, Card, Button } from '../components'
 import { Fonts } from '../theme'
 
 const DIRECTION_LOWER = 'lower'
@@ -56,8 +56,8 @@ const PlayGame = ({ userChoice, onGameOver }) => {
             <Text style={styles.title}>Opponent's Guess</Text>
             <NumberContainer>{currentGuess}</NumberContainer>
             <Card style={styles.buttonContainer}>
-                <Button title="LOWER" onPress={lowerPressHandler} />
-                <Button title="GREATER" onPress={greaterPressHandler} />
+                <Button onPress={lowerPressHandler}>LOWER</Button>
+                <Button onPress={greaterPressHandler}>GREATER</Button>
             </Card>
         </View>
     )
@@ -75,7 +75,7 @@ const styles = StyleSheet.create({
         flexDirection: 'row',
         justifyContent: 'space-around',
         marginTop: 20,
-        width: 300,
+        width: 400,
         maxWidth: '80%'
     }
 })

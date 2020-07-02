@@ -1,6 +1,7 @@
 import React from 'react'
-import { View, Text, StyleSheet, Button, Image } from 'react-native'
+import { View, Text, StyleSheet, Image } from 'react-native'
 import { Colors, Fonts } from '../theme'
+import { Button } from '../components'
 
 const GameOver = ({ numOfGuesses, userChoice, onRestart }) => {
     return <View style={styles.screen}>
@@ -9,7 +10,7 @@ const GameOver = ({ numOfGuesses, userChoice, onRestart }) => {
             <Image style={styles.image} source={require('../assets/success.png')} />
         </View>
         <Text style={styles.summary}>It took <Text style={styles.highlighted}>{numOfGuesses}</Text> to guess <Text style={styles.highlighted}>{userChoice}</Text>.</Text>
-        <Button title="New Game ?" onPress={onRestart} />
+        <Button onPress={onRestart}>New Game ?</Button>
     </View>
 }
 

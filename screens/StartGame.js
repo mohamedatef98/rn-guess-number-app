@@ -1,7 +1,7 @@
 import React, { useState, useCallback } from 'react'
-import { StyleSheet, View, Text, Button, TouchableWithoutFeedback, Keyboard, Alert } from 'react-native'
+import { StyleSheet, View, Text, Button as RNButton, TouchableWithoutFeedback, Keyboard, Alert } from 'react-native'
 
-import { Card, Input, NumberContainer } from '../components'
+import { Card, Input, NumberContainer, Button } from '../components'
 import { Colors, Fonts } from '../theme'
 
 const StartGame = ({ onStartGame }) => {
@@ -52,14 +52,14 @@ const StartGame = ({ onStartGame }) => {
                 <Text>Select a Number</Text>
                 <Input style={styles.input} blurOnSubmit keyboardType="number-pad" autoCorrect={false} maxLength={2} onChangeText={handleEnteredNumber} value={enteredNumber} />
                 <View style={styles.buttonContainer}>
-                    <View style={styles.button}><Button title="Reset" color={Colors.accent} onPress={handleResetPress} /></View>
-                    <View style={styles.button}><Button title="Confirm" color={Colors.primary} onPress={handleConfirmPress} /></View>
+                    <View style={styles.button}><RNButton title="Reset" color={Colors.accent} onPress={handleResetPress} /></View>
+                    <View style={styles.button}><RNButton title="Confirm" color={Colors.primary} onPress={handleConfirmPress} /></View>
                 </View>
             </Card>
             {confirmed && <Card style={styles.summaryContainer}>
                 <Text>You Selected</Text>
                 <NumberContainer>{selectedNumber}</NumberContainer>
-                <Button title="START GAME" onPress={startGameHandler} />
+                <Button onPress={startGameHandler}>START GAME</Button>
             </Card>}
         </View>
     </TouchableWithoutFeedback>
