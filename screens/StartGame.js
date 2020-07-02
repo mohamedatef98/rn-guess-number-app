@@ -36,7 +36,6 @@ const StartGame = ({ onStartGame }) => {
             }
             setSelectedNumber(parsedEnteredNumber)
             setConfirmed(true)
-            setEnteredNumber('')
         },
         [enteredNumber]
     )
