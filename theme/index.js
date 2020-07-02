@@ -1,3 +1,4 @@
 import Colors from './Colors'
+import { Fonts, FontImports } from './Fonts'
 
-export { Colors }
+export { Colors, FontImports, Fonts }

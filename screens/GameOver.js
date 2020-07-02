@@ -1,6 +1,6 @@
 import React from 'react'
 import { View, Text, StyleSheet, Button, Image } from 'react-native'
-import { Colors } from '../theme'
+import { Colors, Fonts } from '../theme'
 
 const GameOver = ({ numOfGuesses, userChoice, onRestart }) => {
     return <View style={styles.screen}>
@@ -20,8 +20,8 @@ const styles = StyleSheet.create({
         flex: 1
     },
     title: {
-        fontSize: 20,
-        fontWeight: 'bold'
+        fontFamily: Fonts.bold,
+        fontSize: 20
     },
     imageContainer: {
         width: 300,

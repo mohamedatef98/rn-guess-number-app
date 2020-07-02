@@ -1,7 +1,7 @@
 import React from 'react'
 import { View, Text, StyleSheet } from 'react-native'
 
-import { Colors } from '../theme'
+import { Colors, Fonts } from '../theme'
 
 const Header = ({ title }) => {
     return <View style={styles.header}>
@@ -19,7 +19,8 @@ const styles = StyleSheet.create({
         justifyContent: 'center'
     },
     text: {
-        fontSize: 18
+        fontSize: 18,
+        fontFamily: Fonts.bold
     }
 })
 

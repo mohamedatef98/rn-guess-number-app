@@ -2,7 +2,7 @@ import React, { useState, useCallback } from 'react'
 import { StyleSheet, View, Text, Button, TouchableWithoutFeedback, Keyboard, Alert } from 'react-native'
 
 import { Card, Input, NumberContainer } from '../components'
-import { Colors } from '../theme'
+import { Colors, Fonts } from '../theme'
 
 const StartGame = ({ onStartGame }) => {
     const [enteredNumber, setEnteredNumber] = useState('')
@@ -74,7 +74,8 @@ const styles = StyleSheet.create({
     },
     title: {
         fontSize: 20,
-        marginVertical: 10
+        marginVertical: 10,
+        fontFamily: Fonts.bold
     },
     inputContainer: {
         width: 300,

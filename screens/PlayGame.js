@@ -2,6 +2,7 @@ import React, { useState, useRef, useEffect } from 'react'
 import { View, Text, StyleSheet, Button, Alert } from 'react-native'
 
 import { NumberContainer, Card } from '../components'
+import { Fonts } from '../theme'
 
 const DIRECTION_LOWER = 'lower'
 const DIRECTION_GREATER = 'greater'
@@ -16,7 +17,7 @@ const generateRandomNumber = (min, max, exclude) => {
     return rnd
 }
 
-const Game = ({ userChoice, onGameOver }) => {
+const PlayGame = ({ userChoice, onGameOver }) => {
     const [currentGuess, setCurrentGuess] = useState(generateRandomNumber(1, 100, userChoice))
     const [numOfGuesses, setNumberOfGuesses] = useState(0)
 
@@ -52,7 +53,7 @@ const Game = ({ userChoice, onGameOver }) => {
 
     return (
         <View style={styles.screen}>
-            <Text>Opponent's Guess</Text>
+            <Text style={styles.title}>Opponent's Guess</Text>
             <NumberContainer>{currentGuess}</NumberContainer>
             <Card style={styles.buttonContainer}>
                 <Button title="LOWER" onPress={lowerPressHandler} />
@@ -67,6 +68,9 @@ const styles = StyleSheet.create({
         alignItems: 'center',
         padding: 10
     },
+    title: {
+        fontFamily: Fonts.bold
+    },
     buttonContainer: {
         flexDirection: 'row',
         justifyContent: 'space-around',
@@ -76,4 +80,4 @@ const styles = StyleSheet.create({
     }
 })
 
-export default Game
+export default PlayGame
