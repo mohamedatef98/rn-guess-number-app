@@ -3,6 +3,7 @@ import { View, Text, StyleSheet, Alert } from 'react-native'
 
 import { NumberContainer, Card, Button } from '../components'
 import { Fonts } from '../theme'
+import { Ionicons } from '@expo/vector-icons'
 
 const DIRECTION_LOWER = 'lower'
 const DIRECTION_GREATER = 'greater'
@@ -56,8 +57,12 @@ const PlayGame = ({ userChoice, onGameOver }) => {
             <Text style={styles.title}>Opponent's Guess</Text>
             <NumberContainer>{currentGuess}</NumberContainer>
             <Card style={styles.buttonContainer}>
-                <Button onPress={lowerPressHandler}>LOWER</Button>
-                <Button onPress={greaterPressHandler}>GREATER</Button>
+                <Button onPress={lowerPressHandler}>
+                    <Ionicons name="md-remove" size={24} />
+                </Button>
+                <Button onPress={greaterPressHandler}>
+                    <Ionicons name="md-add" size={24} />
+                </Button>
             </Card>
         </View>
     )
