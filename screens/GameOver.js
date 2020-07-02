@@ -42,7 +42,8 @@ const styles = StyleSheet.create({
         marginHorizontal: 15
     },
     highlighted: {
-        color: Colors.primary
+        color: Colors.primary,
+        fontFamily: Fonts.bold
     }
 })
 
