@@ -64,8 +64,8 @@ const PlayGame = ({ userChoice, onGameOver }) => {
                     <Ionicons name="md-add" size={24} />
                 </Button>
             </Card>
-            <View style={styles.list}>
-                <ScrollView>
+            <View style={styles.listContainer}>
+                <ScrollView alwaysBounceVertical={false} contentContainerStyle={styles.list}>
                     {pastGuesses.map((guess, i) => (<View key={guess} style={styles.listItem}>
                         <Text style={styles.text}>#{pastGuesses.length - i}</Text>
                         <Text style={styles.text}>{guess}</Text>
@@ -95,9 +95,14 @@ const styles = StyleSheet.create({
     text: {
         fontFamily: Fonts.primary
     },
-    list: {
+    listContainer: {
         flex: 1,
         width: '80%'
+    },
+    list: {
+        flexGrow: 1,
+        alignItems: 'center',
+        justifyContent: 'flex-end'
     },
     listItem: {
         borderColor: '#ccc',
@@ -105,7 +110,8 @@ const styles = StyleSheet.create({
         marginVertical: 10,
         padding: 15,
         flexDirection: 'row',
-        justifyContent: 'space-between'
+        justifyContent: 'space-between',
+        width: '60%'
     }
 })
 
