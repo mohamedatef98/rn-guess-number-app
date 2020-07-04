@@ -77,8 +77,9 @@ const styles = StyleSheet.create({
         fontFamily: Fonts.bold
     },
     inputContainer: {
-        width: 300,
-        maxWidth: '80%',
+        width: '80%',
+        minWidth: 300,
+        maxWidth: 500,
         alignItems: 'center',
     },
     input: {
