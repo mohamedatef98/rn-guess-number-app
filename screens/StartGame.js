@@ -1,7 +1,7 @@
 import React, { useState, useCallback } from 'react'
-import { StyleSheet, View, Text, Button as RNButton, TouchableWithoutFeedback, Keyboard, Alert } from 'react-native'
+import { StyleSheet, View, Button as RNButton, TouchableWithoutFeedback, Keyboard, Alert } from 'react-native'
 
-import { Card, Input, NumberContainer, Button } from '../components'
+import { Card, Input, NumberContainer, Button, Text } from '../components'
 import { Colors, Fonts } from '../theme'
 
 const StartGame = ({ onStartGame }) => {

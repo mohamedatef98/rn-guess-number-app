@@ -1,9 +1,10 @@
 import React, { useState, useRef, useEffect } from 'react'
-import { View, Text, StyleSheet, Alert, ScrollView } from 'react-native'
-
-import { NumberContainer, Card, Button } from '../components'
-import { Fonts } from '../theme'
+import { View, Alert, ScrollView } from 'react-native'
 import { Ionicons } from '@expo/vector-icons'
+
+import { NumberContainer, Card, Button, Text } from '../components'
+import { Fonts, Colors } from '../theme'
+import { useStyles } from '../hooks'
 
 const DIRECTION_LOWER = 'lower'
 const DIRECTION_GREATER = 'greater'
@@ -19,6 +20,46 @@ const generateRandomNumber = (min, max, exclude) => {
 }
 
 const PlayGame = ({ userChoice, onGameOver }) => {
+
+    const styles = useStyles(({ isDark }) => ({
+        screen: {
+            alignItems: 'center',
+            flex: 1,
+            padding: 10
+        },
+        title: {
+            fontFamily: Fonts.bold
+        },
+        buttonContainer: {
+            flexDirection: 'row',
+            justifyContent: 'space-around',
+            marginTop: 20,
+            width: 400,
+            maxWidth: '90%'
+        },
+        text: {
+            fontFamily: Fonts.primary
+        },
+        listContainer: {
+            flex: 1,
+            width: '60%'
+        },
+        list: {
+            flexGrow: 1,
+            justifyContent: 'flex-end'
+        },
+        listItem: {
+            borderColor: '#ccc',
+            borderWidth: 1,
+            marginVertical: 10,
+            padding: 15,
+            flexDirection: 'row',
+            justifyContent: 'space-between',
+            width: '100%',
+            backgroundColor: isDark ? Colors.greyish : Colors.whitish
+        }
+    }))
+
     const [currentGuess, setCurrentGuess] = useState(generateRandomNumber(1, 100, userChoice))
     const [pastGuesses, setPastGuesses] = useState([currentGuess])
 
@@ -33,21 +74,21 @@ const PlayGame = ({ userChoice, onGameOver }) => {
     )
 
     const nextGuessHandler = direction => {
-            if ((direction === DIRECTION_LOWER && currentGuess < userChoice) || (direction === DIRECTION_GREATER && currentGuess > userChoice))
-                return Alert.alert('Don\'t lie!', 'You know that was wrong...', [{ text: 'Sorry!', style: 'cancel' }])
+        if ((direction === DIRECTION_LOWER && currentGuess < userChoice) || (direction === DIRECTION_GREATER && currentGuess > userChoice))
+            return Alert.alert('Don\'t lie!', 'You know that was wrong...', [{ text: 'Sorry!', style: 'cancel' }])
 
-            else if (direction === DIRECTION_LOWER)
-                currentHigh.current = currentGuess
+        else if (direction === DIRECTION_LOWER)
+            currentHigh.current = currentGuess
 
-            else if (direction === DIRECTION_GREATER)
-                currentLow.current = currentGuess + 1
+        else if (direction === DIRECTION_GREATER)
+            currentLow.current = currentGuess + 1
 
-            const nextRnd = generateRandomNumber(currentLow.current, currentHigh.current, currentGuess)
+        const nextRnd = generateRandomNumber(currentLow.current, currentHigh.current, currentGuess)
 
-            setCurrentGuess(nextRnd)
-            setPastGuesses(pastGuesses => [nextRnd, ...pastGuesses])
-        }
-    
+        setCurrentGuess(nextRnd)
+        setPastGuesses(pastGuesses => [nextRnd, ...pastGuesses])
+    }
+
     const lowerPressHandler = () => nextGuessHandler(DIRECTION_LOWER)
 
     const greaterPressHandler = () => nextGuessHandler(DIRECTION_GREATER)
@@ -75,43 +116,5 @@ const PlayGame = ({ userChoice, onGameOver }) => {
         </View>
     )
 }
-
-const styles = StyleSheet.create({
-    screen: {
-        alignItems: 'center',
-        flex: 1,
-        padding: 10
-    },
-    title: {
-        fontFamily: Fonts.bold
-    },
-    buttonContainer: {
-        flexDirection: 'row',
-        justifyContent: 'space-around',
-        marginTop: 20,
-        width: 400,
-        maxWidth: '90%'
-    },
-    text: {
-        fontFamily: Fonts.primary
-    },
-    listContainer: {
-        flex: 1,
-        width: '60%'
-    },
-    list: {
-        flexGrow: 1,
-        justifyContent: 'flex-end'
-    },
-    listItem: {
-        borderColor: '#ccc',
-        borderWidth: 1,
-        marginVertical: 10,
-        padding: 15,
-        flexDirection: 'row',
-        justifyContent: 'space-between',
-        width: '100%'
-    }
-})
 
 export default PlayGame

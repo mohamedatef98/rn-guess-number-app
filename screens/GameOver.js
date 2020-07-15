@@ -1,7 +1,7 @@
 import React from 'react'
-import { View, Text, StyleSheet, Image } from 'react-native'
+import { View, StyleSheet, Image } from 'react-native'
 import { Colors, Fonts } from '../theme'
-import { Button } from '../components'
+import { Button, Text } from '../components'
 
 const GameOver = ({ numOfGuesses, userChoice, onRestart }) => {
     return <View style={styles.screen}>

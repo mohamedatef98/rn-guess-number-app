@@ -1,14 +1,23 @@
-import React, { useState, useCallback, useEffect } from 'react'
-import { StyleSheet, View } from 'react-native'
+import React, { useState, useCallback } from 'react'
+import { View } from 'react-native'
 
 import { Header } from './components'
 import { StartGame, PlayGame, GameOver } from './screens'
+import { useStyles } from './hooks'
 
 const GAME_START = 'start'
 const GAME_RUNNING = 'running'
 const GAME_OVER = 'over'
 
 const Game = (props) => {
+
+  const styles = useStyles(({ isDark }) => ({
+    container: {
+      flex: 1,
+      backgroundColor: isDark ? 'black' : 'white'
+    }
+  }))
+
   const [selectedNumber, setSelectedNumber] = useState(null)
   const [numberOfGuesses, setNumberOfGuesses] = useState(0)
 
@@ -40,16 +49,16 @@ const Game = (props) => {
 
   let content
 
-  switch(gameState) {
+  switch (gameState) {
     case GAME_START:
       content = <StartGame onStartGame={startGameHandler} />
       break
     case GAME_RUNNING:
       content = <PlayGame userChoice={selectedNumber} onGameOver={gameOverHandler} />
       break
-    case GAME_OVER: 
+    case GAME_OVER:
       content = <GameOver userChoice={selectedNumber} numOfGuesses={numberOfGuesses} onRestart={restartGameHandler} />
-      break      
+      break
   }
 
   return (
@@ -59,11 +68,5 @@ const Game = (props) => {
     </View>
   )
 }
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1
-  }
-})
 
 export default Game

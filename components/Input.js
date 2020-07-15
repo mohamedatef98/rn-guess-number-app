@@ -1,15 +1,20 @@
 import React from 'react'
-import { TextInput, StyleSheet } from 'react-native'
+import { TextInput } from 'react-native'
 
-const Input = ({ style, ...rest }) => <TextInput style={[styles.input, style]} {...rest} />
+import { useStyles } from '../hooks'
+import { Colors } from '../theme'
 
-const styles = StyleSheet.create({
-    input: {
-        marginVertical: 10,
-        height: 30,
-        borderColor: 'grey',
-        borderBottomWidth: 1
-    }
-})
+const Input = ({ style, ...rest }) => {
+    const styles = useStyles(({ isDark }) => ({
+        input: {
+            marginVertical: 10,
+            height: 30,
+            borderColor: isDark ? Colors.whitish : Colors.greyish,
+            borderBottomWidth: 1
+        }
+    }))
+
+    return <TextInput style={[styles.input, style]} {...rest} />
+}
 
 export default Input

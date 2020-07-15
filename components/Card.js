@@ -1,26 +1,24 @@
 import React from 'react'
-import { View, StyleSheet } from 'react-native'
+import { View } from 'react-native'
 
-const Card = ({ children, style }) => (
-    <View style={[styles.card, style]}>
-        {children}
-    </View>
-)
+import { useStyles } from '../hooks'
+import { Colors } from '../theme'
 
-const styles = StyleSheet.create({
-    card: {
-        backgroundColor: 'white',
-        padding: 20,
-        borderRadius: 10,
-        elevation: 8,
-        shadowColor: 'black',
-        shadowRadius: 6,
-        shadowOpacity: 0.25,
-        shadowOffset: {
-            width: 0,
-            height: 0
+const Card = ({ children, style }) => {
+    const styles = useStyles(({ isDark }) => ({
+        card: {
+            padding: 20,
+            borderRadius: 10,
+            borderColor: '#ccc',
+            borderWidth: 1,
+            backgroundColor: isDark ? Colors.greyish : Colors.whitish
         }
-    }
-})
+    }))
+
+    return <View style={[styles.card, style]} >
+        {children}
+    </View >
+}
+
 
 export default Card
