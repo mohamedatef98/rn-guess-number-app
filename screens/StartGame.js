@@ -1,5 +1,5 @@
 import React, { useState, useCallback } from 'react'
-import { StyleSheet, View, Button as RNButton, TouchableWithoutFeedback, Keyboard, Alert } from 'react-native'
+import { StyleSheet, View, TouchableWithoutFeedback, Keyboard, Alert, Dimensions, ScrollView, KeyboardAvoidingView } from 'react-native'
 
 import { Card, Input, NumberContainer, Button, Text } from '../components'
 import { Colors, Fonts } from '../theme'
@@ -46,22 +46,26 @@ const StartGame = ({ onStartGame }) => {
     )
 
     return <TouchableWithoutFeedback onPress={handlePress}>
-        <View style={styles.screen}>
-            <Text style={styles.title}>Start new Game</Text>
-            <Card style={styles.inputContainer}>
-                <Text>Select a Number</Text>
-                <Input style={styles.input} blurOnSubmit keyboardType="number-pad" autoCorrect={false} maxLength={2} onChangeText={handleEnteredNumber} value={enteredNumber} />
-                <View style={styles.buttonContainer}>
-                    <View style={styles.button}><RNButton title="Reset" color={Colors.accent} onPress={handleResetPress} /></View>
-                    <View style={styles.button}><RNButton title="Confirm" color={Colors.primary} onPress={handleConfirmPress} /></View>
+        <ScrollView>
+            <KeyboardAvoidingView behavior='position' keyboardVerticalOffset={30}>
+                <View style={styles.screen}>
+                    <Text style={styles.title}>Start new Game</Text>
+                    <Card style={styles.inputContainer}>
+                        <Text style={styles.selectTitle}>Select a Number</Text>
+                        <Input style={styles.input} blurOnSubmit keyboardType="number-pad" autoCorrect={false} maxLength={2} onChangeText={handleEnteredNumber} value={enteredNumber} />
+                        <View style={styles.buttonContainer}>
+                            <View style={styles.button}><Button title="Reset" color={Colors.accent} onPress={handleResetPress} /></View>
+                            <View style={styles.button}><Button title="Confirm" color={Colors.primary} onPress={handleConfirmPress} /></View>
+                        </View>
+                    </Card>
+                    {confirmed && <Card style={styles.summaryContainer}>
+                        <Text style={styles.startTitle}>You Selected</Text>
+                        <NumberContainer>{selectedNumber}</NumberContainer>
+                        <Button onPress={startGameHandler}>START GAME</Button>
+                    </Card>}
                 </View>
-            </Card>
-            {confirmed && <Card style={styles.summaryContainer}>
-                <Text>You Selected</Text>
-                <NumberContainer>{selectedNumber}</NumberContainer>
-                <Button onPress={startGameHandler}>START GAME</Button>
-            </Card>}
-        </View>
+            </KeyboardAvoidingView>
+        </ScrollView>
     </TouchableWithoutFeedback>
 }
 
