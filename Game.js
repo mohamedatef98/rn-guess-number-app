@@ -1,5 +1,5 @@
 import React, { useState, useCallback } from 'react'
-import { SafeAreaView } from 'react-native'
+import { SafeAreaView, View } from 'react-native'
 
 import { Header } from './components'
 import { StartGame, PlayGame, GameOver } from './screens'
@@ -14,7 +14,8 @@ const Game = (props) => {
   const styles = useStyles(({ isDark }) => ({
     container: {
       flex: 1,
-      backgroundColor: isDark ? 'black' : 'white'
+      backgroundColor: isDark ? 'black' : 'white',
+      paddingBottom: 10
     }
   }))
 
@@ -62,10 +63,10 @@ const Game = (props) => {
   }
 
   return (
-    <SafeAreaView style={styles.container}>
+    <View style={styles.container}>
       <Header title="Guess a Number" />
       {content}
-    </SafeAreaView>
+    </View>
   )
 }
 
