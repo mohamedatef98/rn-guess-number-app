@@ -1,10 +1,47 @@
 import React, { useState, useCallback } from 'react'
-import { StyleSheet, View, TouchableWithoutFeedback, Button as RNButton, Keyboard, Alert, ScrollView, KeyboardAvoidingView } from 'react-native'
+import { View, TouchableWithoutFeedback, Button as RNButton, Keyboard, Alert, ScrollView, KeyboardAvoidingView, Dimensions } from 'react-native'
 
 import { Card, Input, NumberContainer, Button, Text } from '../components'
 import { Colors, Fonts } from '../theme'
+import { useStyles } from '../hooks'
 
 const StartGame = ({ onStartGame }) => {
+    const styles = useStyles(({ dimensions }) => ({
+        screen: {
+            flex: 1,
+            alignItems: 'center',
+            padding: 10
+        },
+        title: {
+            fontSize: 20,
+            marginVertical: 10,
+            fontFamily: Fonts.bold
+        },
+        inputContainer: {
+            width: '80%',
+            minWidth: 300,
+            maxWidth: 500,
+            alignItems: 'center',
+        },
+        input: {
+            width: 50,
+            textAlign: 'center'
+        },
+        buttonContainer: {
+            width: '100%',
+            flexDirection: 'row',
+            justifyContent: 'space-between',
+            paddingHorizontal: 15
+        },
+        button: {
+            width: dimensions.width / 4
+        },
+        summaryContainer: {
+            marginTop: 20,
+            alignItems: 'center'
+        }
+    }))
+
     const [enteredNumber, setEnteredNumber] = useState('')
     const [confirmed, setConfirmed] = useState(false)
     const [selectedNumber, setSelectedNumber] = useState(0)
@@ -68,41 +105,5 @@ const StartGame = ({ onStartGame }) => {
         </ScrollView>
     </TouchableWithoutFeedback>
 }
-
-const styles = StyleSheet.create({
-    screen: {
-        flex: 1,
-        alignItems: 'center',
-        padding: 10
-    },
-    title: {
-        fontSize: 20,
-        marginVertical: 10,
-        fontFamily: Fonts.bold
-    },
-    inputContainer: {
-        width: '80%',
-        minWidth: 300,
-        maxWidth: 500,
-        alignItems: 'center',
-    },
-    input: {
-        width: 50,
-        textAlign: 'center'
-    },
-    buttonContainer: {
-        width: '100%',
-        flexDirection: 'row',
-        justifyContent: 'space-between',
-        paddingHorizontal: 15
-    },
-    button: {
-        width: 90
-    },
-    summaryContainer: {
-        marginTop: 20,
-        alignItems: 'center'
-    }
-})
 
 export default StartGame
