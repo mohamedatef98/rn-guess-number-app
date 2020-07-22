@@ -1,5 +1,5 @@
 import React from 'react'
-import { View, Text } from 'react-native'
+import { View, Text, Platform } from 'react-native'
 
 import { Colors, Fonts } from '../theme'
 import { useStyles } from '../hooks'
@@ -11,7 +11,6 @@ const Header = ({ title }) => {
             width: '100%',
             height: 60,
             paddingTop: 20,
-            paddingBottom: 10,
             alignItems: 'center',
             justifyContent: 'center',
             borderColor: Colors.greyish,
@@ -26,7 +25,10 @@ const Header = ({ title }) => {
         text: {
             fontSize: 18,
             fontFamily: Fonts.bold,
-            color: isDark ? 'white' : 'black'
+            color: isDark ? 'white' : 'black',
+            ...(Platform.OS === 'ios' && {
+                color: Colors.primary
+            })
         }
     }))
 
