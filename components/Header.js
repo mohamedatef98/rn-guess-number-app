@@ -6,17 +6,20 @@ import { useStyles } from '../hooks'
 
 const Header = ({ title }) => {
 
-    const styles = useStyles(({ isDark }) => ({
+    const styles = useStyles(({ isDark, dimensions }) => ({
         header: {
             width: '100%',
-            height: 90,
+            height: 60,
             paddingTop: 36,
             paddingBottom: 10,
             alignItems: 'center',
             justifyContent: 'center',
             borderColor: Colors.greyish,
             borderBottomWidth: 0.5,
-            backgroundColor: isDark ? Colors.greyish : Colors.whitish
+            backgroundColor: isDark ? Colors.greyish : Colors.whitish,
+            ...(dimensions.height > 500 && {
+                height: 90
+            })
 
         },
         text: {
