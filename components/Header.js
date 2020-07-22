@@ -10,7 +10,7 @@ const Header = ({ title }) => {
         header: {
             width: '100%',
             height: 60,
-            paddingTop: 36,
+            paddingTop: 20,
             paddingBottom: 10,
             alignItems: 'center',
             justifyContent: 'center',
@@ -18,7 +18,8 @@ const Header = ({ title }) => {
             borderBottomWidth: 0.5,
             backgroundColor: isDark ? Colors.greyish : Colors.whitish,
             ...(dimensions.height > 500 && {
-                height: 90
+                height: 90,
+                paddingTop: 36
             })
 
         },
