@@ -1,5 +1,5 @@
 import React, { useState, useRef, useEffect } from 'react'
-import { View, Alert, ScrollView } from 'react-native'
+import { View, Alert, ScrollView, Dimensions } from 'react-native'
 import { Ionicons } from '@expo/vector-icons'
 
 import { NumberContainer, Card, Button, Text } from '../components'
@@ -33,9 +33,16 @@ const PlayGame = ({ userChoice, onGameOver }) => {
         buttonContainer: {
             flexDirection: 'row',
             justifyContent: 'space-around',
+            alignItems: 'center',
             marginTop: 20,
             width: 400,
             maxWidth: '90%'
+        },
+        smallerControlsContainer: {
+            flexDirection: 'row',
+            alignItems: 'center',
+            justifyContent: 'space-around',
+            width: '80%'
         },
         text: {
             fontFamily: Fonts.primary
@@ -63,6 +70,8 @@ const PlayGame = ({ userChoice, onGameOver }) => {
     const [currentGuess, setCurrentGuess] = useState(generateRandomNumber(1, 100, userChoice))
     const [pastGuesses, setPastGuesses] = useState([currentGuess])
 
+    const [isSmallerView, setIsSmallerView] = useState(Dimensions.get('window').height < 500)
+
     const currentLow = useRef(1)
     const currentHigh = useRef(100)
 
@@ -72,6 +81,13 @@ const PlayGame = ({ userChoice, onGameOver }) => {
         },
         [userChoice, currentGuess, onGameOver, pastGuesses]
     )
+
+    useEffect(() => {
+        const listener = ({ window }) => setIsSmallerView(window.height < 500)
+        Dimensions.addEventListener('change', listener)
+
+        return () => Dimensions.removeEventListener('change', listener)
+    }, [])
 
     const nextGuessHandler = direction => {
         if ((direction === DIRECTION_LOWER && currentGuess < userChoice) || (direction === DIRECTION_GREATER && currentGuess > userChoice))
@@ -93,9 +109,19 @@ const PlayGame = ({ userChoice, onGameOver }) => {
 
     const greaterPressHandler = () => nextGuessHandler(DIRECTION_GREATER)
 
-    return (
-        <View style={styles.screen}>
-            <Text style={styles.title}>Opponent's Guess</Text>
+    let controls = isSmallerView ?
+        <>
+            <View style={styles.smallerControlsContainer}>
+                <Button onPress={lowerPressHandler}>
+                    <Ionicons name="md-remove" size={24} />
+                </Button>
+                <NumberContainer>{currentGuess}</NumberContainer>
+                <Button onPress={greaterPressHandler}>
+                    <Ionicons name="md-add" size={24} />
+                </Button>
+            </View>
+        </> :
+        <>
             <NumberContainer>{currentGuess}</NumberContainer>
             <Card style={styles.buttonContainer}>
                 <Button onPress={lowerPressHandler}>
@@ -105,6 +131,12 @@ const PlayGame = ({ userChoice, onGameOver }) => {
                     <Ionicons name="md-add" size={24} />
                 </Button>
             </Card>
+        </>
+
+    return (
+        <View style={styles.screen}>
+            <Text style={styles.title}>Opponent's Guess</Text>
+            {controls}
             <View style={styles.listContainer}>
                 <ScrollView alwaysBounceVertical={false} contentContainerStyle={styles.list}>
                     {pastGuesses.map((guess, i) => (<View key={guess} style={styles.listItem}>
